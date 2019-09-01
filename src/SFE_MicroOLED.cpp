@@ -143,19 +143,6 @@ static uint8_t screenmemory [] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-/** \brief MicroOLED Constructor -- SPI Mode
-
-	Setup the MicroOLED class, configure the display to be controlled via a
-	SPI interface.
-*/
-MicroOLED::MicroOLED(uint8_t rst, uint8_t dc, uint8_t cs)
-{
-	// Assign each of the parameters to a private class variable.
-	rstPin = rst;
-	dcPin = dc;
-	csPin = cs;
-	interface = MODE_SPI;	// Set interface mode to SPI
-}
 
 /** \brief MicroOLED Constructor -- I2C Mode
 
@@ -173,27 +160,9 @@ MicroOLED::MicroOLED(uint8_t rst, uint8_t dc)
 		i2c_address = I2C_ADDRESS_SA0_1;
 	else
 		i2c_address = I2C_ADDRESS_SA0_0;
+	i2cSetup();
 }
 
-/** \brief MicroOLED Constructor -- Parallel Mode
-
-	Setup the MicroOLED class, configure the display to be controlled via a
-	parallel interface.
-*/
-MicroOLED::MicroOLED(uint8_t rst, uint8_t dc, uint8_t cs, uint8_t wr, uint8_t rd,
-					uint8_t d0, uint8_t d1, uint8_t d2, uint8_t d3,
-					uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7)
-{
-	interface = MODE_PARALLEL;	// Set to parallel mode
-	// Assign pin parameters to private class variables.
-	rstPin = rst;
-	dcPin = dc;
-	csPin = cs;
-	wrPin = wr;
-	rdPin = rd;
-	dPins[0] = d0; dPins[1] = d1; dPins[2] = d2; dPins[3] = d3;
-	dPins[4] = d4; dPins[5] = d5; dPins[6] = d6; dPins[7] = d7;
-}
 
 /** \brief Initialisation of MicroOLED Library.
 
